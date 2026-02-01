@@ -1,0 +1,9 @@
+Credit card transactions
+Credit card;Customer number;Card number;Card holder
+Miles & More Gold Credit Card (Kreditkarte);225 173 7345;5426********1495;PANSHUL GUPTA
+Billing date: 2/3/2026
+Voucher date;Date of receipt;Reason for payment;Foreign currency;Amount;Exchange rate;Amount;Currency
+1/29/2026;1/29/2026;Valid Transaction;EUR;-10.50;1.00000;-10.50;EUR
+invalid-date;1/29/2026;Invalid Date Transaction;EUR;-5.00;1.00000;-5.00;EUR
+1/28/2026;1/28/2026;Missing Amount;;;-20.00;EUR
+1/27/2026;1/27/2026;;EUR;-15.00;1.00000;-15.00;EUR

@@ -3,6 +3,7 @@ package root
 import (
 	"os"
 
+	"github.com/pgbytes/moneypenny/cmd/cli/parser"
 	"github.com/pgbytes/moneypenny/cmd/cli/ynab"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
@@ -16,6 +17,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&csvFilePath, "csv", "c", "sample/sample.csv", "relative path to csv file to process")
 
 	// Register top-level commands
+	rootCmd.AddCommand(parser.Cmd)
 	rootCmd.AddCommand(ynab.Cmd)
 }
 
