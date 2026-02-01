@@ -20,10 +20,7 @@ run:
 	go run cmd/cli/main.go
 
 build: checks
-	env GOOS=linux CGO_ENABLED=0 go build -v -ldflags "-X main.sha1ver=${VERSION} -X main.buildTime=${NOW}" -o ./bin/moneypenny ./cmd/cli/.
-ifeq (${CURRENT_OS},Darwin)
-	env GOOS=darwin CGO_ENABLED=0 go build -v -ldflags "-X main.sha1ver=${VERSION} -X main.buildTime=${NOW}" -o ./bin/moneypenny-macos ./cmd/cli/.
-endif
+	env GOOS=darwin GOARCH=arm64 CGO_ENABLED=0 go build -v -ldflags "-X main.sha1ver=${VERSION} -X main.buildTime=${NOW} -s -w" -o ./bin/moneypenny ./cmd/cli/.
 
 test: checks
 	gotestsum ./internal/... -race -covermode=atomic -test.short -v
