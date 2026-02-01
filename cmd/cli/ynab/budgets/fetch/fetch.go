@@ -12,7 +12,6 @@ import (
 
 // Flags for the fetch command - isolated to this package.
 var (
-	configPath      string
 	includeAccounts bool
 	verbose         bool
 )
@@ -32,16 +31,18 @@ Example:
 
 func init() {
 	// Add flags - no prefix needed since they're isolated to this package
-	Cmd.Flags().StringVarP(&configPath, "config", "f", "", "path to config file (JSON)")
 	Cmd.Flags().BoolVarP(&includeAccounts, "include-accounts", "a", false, "include accounts in output")
 	Cmd.Flags().BoolVarP(&verbose, "verbose", "v", false, "display all details (default: short format)")
-
-	// Mark required flags
-	_ = Cmd.MarkFlagRequired("config")
 }
 
 func run(cmd *cobra.Command, args []string) error {
 	logger := log.GetLogger()
+
+	// Get config path from parent's persistent flag
+	configPath, err := cmd.Flags().GetString("config")
+	if err != nil {
+		return fmt.Errorf("getting config flag: %w", err)
+	}
 
 	// Load configuration
 	cfg, err := config.LoadFromFile(configPath)

@@ -12,10 +12,9 @@ import (
 
 // Flags for the fetch command - isolated to this package.
 var (
-	configPath string
-	accountID  string
-	limit      int
-	sinceDate  string
+	accountID string
+	limit     int
+	sinceDate string
 )
 
 // Cmd fetches transactions from YNAB.
@@ -32,18 +31,22 @@ Example:
 
 func init() {
 	// Add flags - no prefix needed since they're isolated to this package
-	Cmd.Flags().StringVarP(&configPath, "config", "f", "", "path to config file (JSON)")
 	Cmd.Flags().StringVarP(&accountID, "account-id", "a", "", "account ID to fetch transactions from")
 	Cmd.Flags().IntVarP(&limit, "limit", "n", 10, "number of transactions to fetch")
 	Cmd.Flags().StringVarP(&sinceDate, "since-date", "s", "", "fetch transactions since date (ISO format: YYYY-MM-DD)")
 
 	// Mark required flags
-	_ = Cmd.MarkFlagRequired("config")
 	_ = Cmd.MarkFlagRequired("account-id")
 }
 
 func run(cmd *cobra.Command, args []string) error {
 	logger := log.GetLogger()
+
+	// Get config path from parent's persistent flag
+	configPath, err := cmd.Flags().GetString("config")
+	if err != nil {
+		return fmt.Errorf("getting config flag: %w", err)
+	}
 
 	// Load configuration
 	cfg, err := config.LoadFromFile(configPath)
