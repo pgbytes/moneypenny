@@ -27,3 +27,6 @@ bin/
 
 # mac
 .DS_Store
+
+#config
+config.*.json
