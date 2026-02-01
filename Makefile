@@ -12,7 +12,7 @@ staticcheck:
 	staticcheck ./cmd/... ./internal/... .tests/...
 
 tidy:
-	go mod tidy -go=1.24
+	go mod tidy -go=1.25
 
 checks: tidy lint vet staticcheck
 
