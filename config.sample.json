@@ -1,0 +1,6 @@
+{
+  "ynab": {
+    "api_key": "YOUR_YNAB_PERSONAL_ACCESS_TOKEN",
+    "budget_id": "YOUR_BUDGET_ID"
+  }
+}

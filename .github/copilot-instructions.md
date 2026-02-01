@@ -29,6 +29,8 @@ MoneyPenny is a personal finance assistant CLI tool written in Go 1.25. It proce
 
 ### Configuration
 - Configuration uses JSON format (no external dependencies)
+- Sample config file: [config.sample.json](../config.sample.json) - copy to `config.json` and fill in your values
+- **Important**: When modifying `internal/config/config.go`, always update `config.sample.json` to match
 - Config file structure supports multiple services:
 ```json
 {
