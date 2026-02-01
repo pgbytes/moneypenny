@@ -19,3 +19,11 @@ bin/
 .idea
 **/*~
 **/*.pb.go
+
+#IDE
+.idea/
+.vscode/
+.metals/
+
+# mac
+.DS_Store

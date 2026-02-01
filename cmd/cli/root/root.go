@@ -1,9 +1,11 @@
 package root
 
 import (
+	"os"
+
+	"github.com/pgbytes/moneypenny/cmd/cli/ynab"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
-	"os"
 )
 
 var (
@@ -12,6 +14,9 @@ var (
 
 func init() {
 	rootCmd.PersistentFlags().StringVarP(&csvFilePath, "csv", "c", "sample/sample.csv", "relative path to csv file to process")
+
+	// Register top-level commands
+	rootCmd.AddCommand(ynab.Cmd)
 }
 
 var rootCmd = &cobra.Command{
