@@ -120,6 +120,36 @@ func (c *Client) BudgetID() string {
 	return c.budgetID
 }
 
+// GetBudgets retrieves all budgets for the authenticated user.
+// If includeAccounts is true, the response includes account details for each budget.
+func (c *Client) GetBudgets(includeAccounts bool) ([]BudgetSummary, error) {
+	c.logger.Debug("Fetching budgets")
+
+	var result BudgetSummaryResponse
+	var errResp ErrorResponse
+
+	req := c.httpClient.R().
+		SetResult(&result).
+		SetError(&errResp)
+
+	if includeAccounts {
+		req.SetQueryParam("include_accounts", "true")
+	}
+
+	resp, err := req.Get("/budgets")
+	if err != nil {
+		return nil, fmt.Errorf("fetching budgets: %w", err)
+	}
+
+	if resp.IsError() {
+		return nil, mapHTTPStatusToError(resp.StatusCode(), &errResp.Error)
+	}
+
+	c.logger.Debugf("Fetched %d budgets", len(result.Data.Budgets))
+
+	return result.Data.Budgets, nil
+}
+
 // GetAccounts retrieves all accounts for the configured budget.
 func (c *Client) GetAccounts() ([]Account, error) {
 	c.logger.Debugf("Fetching accounts for budget: %s", c.budgetID)

@@ -144,6 +144,43 @@ type SaveTransactionsResponse struct {
 	} `json:"data"`
 }
 
+// BudgetSummary represents a YNAB budget summary.
+type BudgetSummary struct {
+	ID             string          `json:"id"`
+	Name           string          `json:"name"`
+	LastModifiedOn string          `json:"last_modified_on"`
+	FirstMonth     string          `json:"first_month"`
+	LastMonth      string          `json:"last_month"`
+	DateFormat     *DateFormat     `json:"date_format"`
+	CurrencyFormat *CurrencyFormat `json:"currency_format"`
+	Accounts       []Account       `json:"accounts,omitempty"`
+}
+
+// DateFormat represents the date format settings for a budget.
+type DateFormat struct {
+	Format string `json:"format"`
+}
+
+// CurrencyFormat represents the currency format settings for a budget.
+type CurrencyFormat struct {
+	ISOCode          string `json:"iso_code"`
+	ExampleFormat    string `json:"example_format"`
+	DecimalDigits    int    `json:"decimal_digits"`
+	DecimalSeparator string `json:"decimal_separator"`
+	SymbolFirst      bool   `json:"symbol_first"`
+	GroupSeparator   string `json:"group_separator"`
+	CurrencySymbol   string `json:"currency_symbol"`
+	DisplaySymbol    bool   `json:"display_symbol"`
+}
+
+// BudgetSummaryResponse wraps the budgets list response.
+type BudgetSummaryResponse struct {
+	Data struct {
+		Budgets       []BudgetSummary `json:"budgets"`
+		DefaultBudget *BudgetSummary  `json:"default_budget,omitempty"`
+	} `json:"data"`
+}
+
 // Milliunits conversion helpers
 
 // MilliunitsToFloat converts YNAB milliunits to a float64 amount.
