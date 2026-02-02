@@ -4,6 +4,7 @@ package ynab
 import (
 	"github.com/pgbytes/moneypenny/cmd/cli/ynab/budgets"
 	"github.com/pgbytes/moneypenny/cmd/cli/ynab/transactions"
+	"github.com/pgbytes/moneypenny/cmd/cli/ynab/transform"
 	"github.com/spf13/cobra"
 )
 
@@ -27,4 +28,5 @@ func init() {
 	// Register subcommands
 	Cmd.AddCommand(budgets.Cmd)
 	Cmd.AddCommand(transactions.Cmd)
+	Cmd.AddCommand(transform.Cmd)
 }
