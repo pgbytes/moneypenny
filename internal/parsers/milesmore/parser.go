@@ -259,8 +259,9 @@ func parseDate(dateStr string) (time.Time, error) {
 	return t, nil
 }
 
-// parseAmount parses an amount string, handling European number format (comma as decimal).
-// Examples: "-330", "-8.44", "-0.16"
+// parseAmount parses an amount string in Miles & More format, where the comma is
+// the thousands separator and the dot is the decimal separator.
+// Examples: "-330", "-8.44", "-0.16", "-1,087.32"
 func parseAmount(amountStr string) (float64, error) {
 	if amountStr == "" {
 		return 0, fmt.Errorf("amount is empty")
@@ -268,6 +269,9 @@ func parseAmount(amountStr string) (float64, error) {
 
 	// Remove any whitespace
 	amountStr = strings.TrimSpace(amountStr)
+
+	// Strip the thousands separator (comma) so ParseFloat accepts the value.
+	amountStr = strings.ReplaceAll(amountStr, ",", "")
 
 	// Parse as float
 	amount, err := strconv.ParseFloat(amountStr, 64)

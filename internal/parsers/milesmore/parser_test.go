@@ -37,8 +37,8 @@ func (s *ParserTestSuite) TestParse_WithValidCSV_ParsesAllTransactions() {
 	// Assert
 	s.NoError(err)
 	s.NotNil(result)
-	s.Equal(6, result.SuccessfulRows, "should parse all 6 transactions")
-	s.Equal(6, len(result.Transactions))
+	s.Equal(7, result.SuccessfulRows, "should parse all 7 transactions")
+	s.Equal(7, len(result.Transactions))
 	s.Empty(result.Errors, "should have no parsing errors")
 
 	// Verify first transaction (foreign transaction fee)
